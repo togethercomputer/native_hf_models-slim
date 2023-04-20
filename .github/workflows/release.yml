@@ -66,6 +66,7 @@ jobs:
           echo "${{ env.TAG_NAME }}"
           git config --global user.name 'Together Robot'
           git push --tags
+          docker buildx create --use
           docker buildx build -f "$DOCKERFILE" \
             --cache-from="type=local,src=/tmp/.buildx-cache" \
             --cache-to="type=local,src=/tmp/.buildx-cache-new" \
