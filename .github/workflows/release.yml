@@ -13,7 +13,7 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   DOCKERHUB_REPOSITORY: native_hf_models
   DOCKERHUB_ORGANIZATION: togethercomputer
-  DOCKERFILE: dockerfile_together
+  DOCKERFILE: Dockerfile
 
 defaults:
   run:
