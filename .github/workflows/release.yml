@@ -60,7 +60,7 @@ jobs:
           git push --tags
           docker build -f "$DOCKERFILE" --build-arg TAG_NAME=${TAG_NAME} \
             -t ${DOCKERHUB_ORGANIZATION}/${DOCKERHUB_REPOSITORY}:${TAG_NAME} \
-            -t ${DOCKERHUB_ORGANIZATION}/${DOCKERHUB_REPOSITORY}:latest .
+            -t ${DOCKERHUB_ORGANIZATION}/${DOCKERHUB_REPOSITORY}:slim .
           docker push -a ${DOCKERHUB_ORGANIZATION}/${DOCKERHUB_REPOSITORY}
           echo "::set-output name=tag::$TAG_NAME"
           echo "Finished push"
