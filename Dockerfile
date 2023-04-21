@@ -58,4 +58,4 @@ RUN mkdir -p /app
 COPY . /app
 WORKDIR /app
 
-RUN conda activate alpa && pip3 install .
+RUN . /opt/conda/etc/profile.d/conda.sh && conda activate alpa && pip3 install .
