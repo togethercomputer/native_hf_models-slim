@@ -32,23 +32,21 @@ RUN pip install torch torchvision torchaudio --extra-index-url https://download.
 # install flash attention
 RUN pip install flash-attn
 
-# install alpa example dependencies
+# install dependencies for alpa examples
 RUN pip install fastapi uvicorn omegaconf jinja2 einops
 
 # install alpa examples
-RUN pip install /build/alpa/examples
+RUN git clone --depth=1 https://github.com/alpa-projects/alpa && \
+    pip install alpa/examples && \
+    rm -r alpa
 
 # install sentencepiece, accelerate, bitsandbytes
 RUN pip install sentencepiece accelerate bitsandbytes
 
-RUN wget https://together-distro-packages.s3.us-west-2.amazonaws.com/linux/x86_64/bin/together-node-latest -O /usr/local/bin/together-node && \
-    chmod +x /usr/local/bin/together-node
-
-COPY cfgs/ cfgs/
+COPY cfgs/ /home/user/cfgs/
 
 ENV PYTHONUNBUFFERED=1
 
-RUN mkdir -p /app
-COPY . /app
-WORKDIR /app
+COPY . /home/user/app
+WORKDIR /home/user/app
 RUN pip install .
