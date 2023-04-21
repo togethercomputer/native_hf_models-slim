@@ -8,7 +8,7 @@ setup(
     author_email='support@together.xyz',
     description='This package runs native HF models on the together computer',
     packages=find_packages(),    
-    scripts=['bin/serve_local_nlp_model']
+    scripts=['bin/serve_local_nlp_model'],
     install_requires=['torch',
         'transformers',
         'together_worker',
