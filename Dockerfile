@@ -45,10 +45,10 @@ RUN . /opt/conda/etc/profile.d/conda.sh && \
 RUN wget https://together-distro-packages.s3.us-west-2.amazonaws.com/linux/x86_64/bin/together-node-latest -O /usr/local/bin/together-node && \
     chmod +x /usr/local/bin/together-node
 
-COPY cfg-neoxt-local.yaml /home/user/cfg-neoxt.yaml
-COPY cfg-neoxt-local-8bit.yaml /home/user/cfg-neoxt-8bit.yaml
-COPY cfg-neoxt-retrieval-local.yaml /home/user/cfg-neoxt-retrieval.yaml
-COPY cfg-hf-local.yaml /home/user/cfg-hf.yaml
+COPY cfgs/cfg-neoxt-local.yaml /home/user/cfg-neoxt.yaml
+COPY cfgs/cfg-neoxt-local-8bit.yaml /home/user/cfg-neoxt-8bit.yaml
+COPY cfgs/cfg-neoxt-retrieval-local.yaml /home/user/cfg-neoxt-retrieval.yaml
+COPY cfgs/cfg-hf-local.yaml /home/user/cfg-hf.yaml
 
 ENV PATH /opt/conda/condabin/conda/bin:$PATH
 ENV HOME=/home/user
