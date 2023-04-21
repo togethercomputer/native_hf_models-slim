@@ -57,3 +57,5 @@ ENV PYTHONUNBUFFERED=1
 RUN mkdir -p /app
 COPY . /app
 WORKDIR /app
+
+RUN conda activate alpa && pip3 install -e .
