@@ -8,9 +8,12 @@ import random
 import logging
 import argparse
 import numpy as np
-from faiss_retrieval import *
-from utils import *
-from model_utils import *
+
+# TODO: Clean up these imports
+from native_hf_models.faiss_retrieval import *
+from native_hf_models.utils import *
+from native_hf_models.model_utils import *
+
 from typing import Dict
 from torch.nn.utils.rnn import pad_sequence
 from transformers import AutoTokenizer, AutoConfig, StoppingCriteriaList
