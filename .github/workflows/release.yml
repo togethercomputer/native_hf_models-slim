@@ -67,9 +67,10 @@ jobs:
           git config --global user.name 'Together Robot'
           git push --tags
           docker buildx create --use --driver=docker-container
-          docker buildx build -f "$DOCKERFILE" --build-arg TAG_NAME=${TAG_NAME} \
+          docker buildx build -f "$DOCKERFILE" --load \
             --cache-from="type=local,src=/tmp/.buildx-cache" \
             --cache-to="type=local,dest=/tmp/.buildx-cache-new" \
+            --build-arg TAG_NAME=${TAG_NAME} \
             -t ${DOCKERHUB_ORGANIZATION}/${DOCKERHUB_REPOSITORY}:${TAG_NAME} \
             -t ${DOCKERHUB_ORGANIZATION}/${DOCKERHUB_REPOSITORY}:slim .
           docker push -a ${DOCKERHUB_ORGANIZATION}/${DOCKERHUB_REPOSITORY}
