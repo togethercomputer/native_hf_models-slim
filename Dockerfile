@@ -36,7 +36,7 @@ RUN . /opt/conda/etc/profile.d/conda.sh && \
     cd /build && \
     git clone https://github.com/alpa-projects/alpa.git && \
     cd alpa/examples && \
-    pip3 install -e . && \
+    pip3 install . && \
     pip3 install --no-cache-dir sentencepiece && \
     pip3 install --no-cache-dir accelerate && \
     pip3 install --no-cache-dir bitsandbytes && \
@@ -58,4 +58,4 @@ RUN mkdir -p /app
 COPY . /app
 WORKDIR /app
 
-RUN conda activate alpa && pip3 install -e .
+RUN conda activate alpa && pip3 install .
