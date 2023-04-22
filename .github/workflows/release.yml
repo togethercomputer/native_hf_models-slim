@@ -58,7 +58,7 @@ jobs:
           echo "${{ env.TAG_NAME }}"
           git config --global user.name 'Together Robot'
           git push --tags
-          docker build -f "$DOCKERFILE" --load \
+          docker build -f "$DOCKERFILE" \
             --cache-from="type=local,src=/tmp/.buildx-cache" \
             --cache-to="type=local,dest=/tmp/.buildx-cache-new" \
             --build-arg TAG_NAME=${TAG_NAME} \
