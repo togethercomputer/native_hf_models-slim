@@ -59,4 +59,6 @@ RUN useradd -m user
 COPY --from=build /home/user /home/user
 
 USER user
+ENV PATH="/home/user/.local/bin:${PATH}"
+WORKDIR /home/user
 ENV PYTHONUNBUFFERED=1
