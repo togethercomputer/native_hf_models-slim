@@ -1,6 +1,6 @@
 FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu20.04 as build
 USER root
-RUN apt update && apt dist-upgrade -y && apt install --no-install-recommends -y python3-venv python3-pip coinor-cbc wget git && rm -rf /var/lib/apt/lists/*
+RUN apt update && apt dist-upgrade -y && apt install --no-install-recommends -y python3-venv python3-pip python3-dev coinor-cbc git && rm -rf /var/lib/apt/lists/*
 RUN useradd -m user
 
 USER user
@@ -43,15 +43,20 @@ RUN git clone --depth=1 https://github.com/alpa-projects/alpa && \
 # install sentencepiece, accelerate, bitsandbytes
 RUN pip install sentencepiece accelerate bitsandbytes
 
-COPY . /home/user/app
+# install native_hf_app
+ADD --chown=user:user . /home/user/app
 RUN pip install /home/user/app
 
+##
+##
+# build runtime image
 FROM nvidia/cuda:11.8.0-cudnn8-runtime-ubuntu20.04
 USER root
 
-COPY --from=build /home/user /home/user
-RUN apt update && apt dist-upgrade -y && apt install -y python3-venv python3-pip coinor-cbc wget git && rm -rf /var/lib/apt/lists/*
+RUN apt update && apt dist-upgrade -y && apt install --no-install-recommends -y python3-venv python3-pip coinor-cbc && rm -rf /var/lib/apt/lists/*
 RUN useradd -m user
+
+COPY --from=build /home/user /home/user
 
 USER user
 ENV PYTHONUNBUFFERED=1
