@@ -2,5 +2,5 @@ worker:
   mode: local-service
   group:
     alloc: each
-  command: /opt/conda/envs/alpa/bin/serve_local_nlp_model --hf_model_name {{.MODEL}} 
+  command: serves_local_nlp_model --hf_model_name {{.MODEL}} 
   env: HF_HOME=/home/user/.together/models
