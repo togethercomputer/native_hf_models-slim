@@ -29,14 +29,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Cache Docker layers
-        uses: actions/cache@v2
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -66,19 +58,13 @@ jobs:
           echo "${{ env.TAG_NAME }}"
           git config --global user.name 'Together Robot'
           git push --tags
-          docker buildx create --use --driver=docker-container
-          docker buildx build -f "$DOCKERFILE" --load \
+          docker build -f "$DOCKERFILE" --load \
             --cache-from="type=local,src=/tmp/.buildx-cache" \
             --cache-to="type=local,dest=/tmp/.buildx-cache-new" \
             --build-arg TAG_NAME=${TAG_NAME} \
             -t ${DOCKERHUB_ORGANIZATION}/${DOCKERHUB_REPOSITORY}:${TAG_NAME} \
             -t ${DOCKERHUB_ORGANIZATION}/${DOCKERHUB_REPOSITORY}:slim .
           docker push -a ${DOCKERHUB_ORGANIZATION}/${DOCKERHUB_REPOSITORY}
-          echo "::set-output name=tag::$TAG_NAME"
+          echo "tag=$TAG_NAME" >> $GITHUB_OUTPUT
           echo "Finished push"
           sleep 30
-
-      - name: Move cache
-        run: |
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
