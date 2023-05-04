@@ -40,6 +40,12 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
       - name: Login to DockerHub
         id: login-dockerhub
         uses: docker/login-action@v2
@@ -47,8 +53,8 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build, tag, and push image to DockerHub
-        id: build-image
+      - name: autotag
+        id: autotag
         run: |
           git fetch --tags --unshallow --prune
           curl -sL https://git.io/autotag-install | sh --
@@ -58,11 +64,11 @@ jobs:
           echo "${{ env.TAG_NAME }}"
           git config --global user.name 'Together Robot'
           git push --tags
-          docker build -f "$DOCKERFILE" \
-            --build-arg TAG_NAME=${TAG_NAME} \
-            -t ${DOCKERHUB_ORGANIZATION}/${DOCKERHUB_REPOSITORY}:${TAG_NAME} \
-            -t ${DOCKERHUB_ORGANIZATION}/${DOCKERHUB_REPOSITORY}:slim .
-          docker push -a ${DOCKERHUB_ORGANIZATION}/${DOCKERHUB_REPOSITORY}
-          echo "tag=$TAG_NAME" >> $GITHUB_OUTPUT
-          echo "Finished push"
-          sleep 30
+
+      - name: build and push
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: :${{ env.TAG_NAME}}
+          cache-from: type=registry,ref=${{ env.DOCKERHUB_ORGANIZATION }}/${{ env.DOCKERHUB_REPOSITORY}}:cache
+          cache-to: type=registry,ref=${{ env.DOCKERHUB_ORGANIZATION }}/${{ env.DOCKERHUB_REPOSITORY}}:cache,mode=max
