@@ -29,9 +29,7 @@ RUN git clone --recursive https://github.com/alpa-projects/alpa.git && \
     cd /home/user/alpa/build_jaxlib/dist && \
     pip install . && \
     cd /home/user/alpa/examples && \
-    pip . && \
-    cd /home/user/ && \
-    rm -rf alpa
+    pip .
 
 # install together_worker
 RUN pip install together_worker
