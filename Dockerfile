@@ -39,8 +39,5 @@ RUN pip install together_worker
 # intall transformers_port
 RUN pip install 'transformers@git+https://github.com/togethercomputer/transformers_port'
 
-# install flash attention
-RUN pip install flash-attn
-
 # install sentencepiece, accelerate, bitsandbytes
 RUN pip install sentencepiece accelerate bitsandbytes
