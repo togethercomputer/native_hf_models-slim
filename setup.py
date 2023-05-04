@@ -14,7 +14,7 @@ setup(
         'together_worker',
         'loguru',
         'boto3',
-        'sentencepiece'
-        'accelerate'
+        'sentencepiece',
+        'accelerate',
         'bitsandbytes']
 )
