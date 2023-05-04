@@ -23,13 +23,13 @@ RUN pip install cmake lit
 # install alpa
 RUN git clone --recursive https://github.com/alpa-projects/alpa.git && \
     cd /home/user/alpa && \
-    pip install ".[dev]" && \
+    pip install ".[dev]" || exit && \
     cd /home/user/alpa/build_jaxlib && \
-    python build/build.py --enable_cuda --bazel_options=--override_repository=org_tensorflow=$(pwd)/../third_party/tensorflow-alpa && \
+    python build/build.py --enable_cuda --bazel_options=--override_repository=org_tensorflow=$(pwd)/../third_party/tensorflow-alpa || exit && \
     cd /home/user/alpa/build_jaxlib/dist && \
-    pip install . && \
+    pip install . || exit && \
     cd /home/user/alpa/examples && \
-    pip .
+    pip . || exit
 
 # install together_worker
 RUN pip install together_worker
