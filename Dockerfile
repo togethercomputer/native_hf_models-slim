@@ -17,8 +17,8 @@ RUN pip install --upgrade pip
 # install cupy
 RUN pip install cupy-cuda11x
 
-# install dependencies for alpa
-RUN pip install fastapi uvicorn omegaconf jinja2 einops cmake lit
+# install build dependencies for alpa
+RUN pip install cmake lit
 
 # install alpa
 RUN git clone --recursive https://github.com/alpa-projects/alpa.git && \
