@@ -38,6 +38,3 @@ RUN pip install together_worker
 
 # intall transformers_port
 RUN pip install 'transformers@git+https://github.com/togethercomputer/transformers_port'
-
-# install sentencepiece, accelerate, bitsandbytes
-RUN pip install sentencepiece accelerate bitsandbytes
