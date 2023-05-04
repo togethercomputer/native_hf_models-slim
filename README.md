@@ -1,4 +1,4 @@
-# native_hf_models-slim
+# csm_llsmserve
 
 This repo is a WIP image for running HF models.
 

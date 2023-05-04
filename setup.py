@@ -1,9 +1,9 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='native_hf_models',
+    name='csm_llmserve',
     version='0.0.1',
-    url='https://github.com/togethercomputer/native_hf_model',
+    url='https://github.com/togethercomputer/csm_llmserve',
     author='Together Computer',
     author_email='support@together.xyz',
     description='This package runs native HF models on the together computer',

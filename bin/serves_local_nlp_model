@@ -11,9 +11,9 @@ import argparse
 import numpy as np
 
 # TODO: Clean up these imports
-from native_hf_models.faiss_retrieval import *
-from native_hf_models.utils import *
-from native_hf_models.model_utils import *
+from csm_llmserve.faiss_retrieval import *
+from csm_llmserve.utils import *
+from csm_llmserve.model_utils import *
 
 from typing import Dict
 from torch.nn.utils.rnn import pad_sequence
