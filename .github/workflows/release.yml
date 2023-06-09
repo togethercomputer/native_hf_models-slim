@@ -22,7 +22,7 @@ defaults:
 jobs:
   build:
     name: Build and push intermediate image
-    runs-on: big-builder
+    runs-on: ubuntu-20.04-16core
     outputs:
       tag: ${{ steps.build-image.outputs.tag }}
     steps:
